@@ -10,6 +10,7 @@ const Users = ({ users, ...rest }) => {
     const count = users.length;
     const pageSize = 4;
     const [currentPage, setcurrentPage] = useState(1);
+    // eslint-disable-next-line no-unused-vars
     const [professions, setProfessions] = useState(api.professions.fetchAll());
     const handlePageChange = (pageIndex) => {
         setcurrentPage(pageIndex);
@@ -17,9 +18,17 @@ const Users = ({ users, ...rest }) => {
 
     const userCrop = paginate(users, currentPage, pageSize);
 
+    const handleProfessionsSelect = (params) => {
+        console.log(params);
+    };
+    console.log(professions);
+
     return (
         <>
-            <GroupList items={professions} />
+            <GroupList
+                items={professions}
+                jnItemSelect={handleProfessionsSelect}
+            />
             {count > 0 && (
                 <table className="table">
                     <thead>
