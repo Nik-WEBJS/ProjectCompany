@@ -18,9 +18,9 @@ module.exports = {
     'react'
   ],
   rules: {
-    "indent": ["error, 4"],
-    "semi":[2,"always"],
-    "space-before-function-paren": ["error",'never'],
-    "quotes":["error","double",{"allowTemplateLiterls": true }]
+    indent: [4, "error"],
+    semi: [2,"always"],
+    "space-before-function-paren": ["error",{anonymous:"always", named:"never"}],
+    quotes:["error","double",{allowTemplateLiterls: true }]
   }
 }
