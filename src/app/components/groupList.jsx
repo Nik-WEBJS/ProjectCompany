@@ -13,21 +13,18 @@ const GroupList = ({
     return Array.isArray(items)
         ? (
             <ul className="list-group">
-                {items.map((item) => {
+                {items.map((item) => (
                     <li
-                        key={item._id.valueProperty}
+                        key={item._id}
                         className={
-                            "list-group-item" + item === selectedItem
-                                ? " active"
-                                : " "
+                            "list-group-item" + (item === selectedItem ? " active" : " ")
                         }
                         onClick={() => onItemSelect(item)}
                         role="button"
                     >
                         {item.name}
-                    </li>;
-                    console.log(item.name);
-                })}
+                    </li>
+                ))}
             </ul>
         )
         : (

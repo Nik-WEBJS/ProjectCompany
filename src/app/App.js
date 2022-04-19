@@ -25,7 +25,7 @@ function App() {
     };
     return (
         <div>
-            <Users onDelete={handleDelete} onToggleBookMark={handleToggleBookMark} users={users} />
+            {users && <Users onDelete={handleDelete} onToggleBookMark={handleToggleBookMark} users={users} />}
         </div>
     );
 }
