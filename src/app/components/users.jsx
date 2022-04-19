@@ -96,7 +96,7 @@ const Users = ({ users: allUsers, ...rest }) => {
 };
 
 Users.propTypes = {
-    users: PropTypes.object
+    users: PropTypes.array
 };
 
 export default Users;

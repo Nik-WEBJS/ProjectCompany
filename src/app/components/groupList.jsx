@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import React from "react";
 import PropTypes from "prop-types";
 
@@ -12,7 +13,7 @@ const GroupList = ({
     return Array.isArray(items)
         ? (
             <ul className="list-group">
-                {items.forEach((item) => {
+                {items.map((item) => {
                     <li
                         key={item._id.valueProperty}
                         className={
