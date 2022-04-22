@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { paginate } from "../utils/paginate";
 import Pagunation from "./pagunation";
-import User from "./user";
 import GroupList from "./groupList";
 import PropTypes from "prop-types";
 import SearchStatus from "./searchStatus";
 import api from "../api";
+import UserTable from "./usersTable";
 
 const Users = ({ users: allUsers, ...rest }) => {
     const pageSize = 2;
@@ -32,7 +32,7 @@ const Users = ({ users: allUsers, ...rest }) => {
         ? allUsers.filter(
             (user) =>
                 JSON.stringify(user.profession) ===
-                JSON.stringify(selectedProf)
+                  JSON.stringify(selectedProf)
         )
         : allUsers;
 
@@ -62,26 +62,7 @@ const Users = ({ users: allUsers, ...rest }) => {
             )}
             <div className="d-flex flex-column">
                 <SearchStatus length={count} />
-                {count > 0 && (
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Имя</th>
-                                <th scope="col">Качества</th>
-                                <th scope="col">Профессия</th>
-                                <th scope="col">Встретился, раз</th>
-                                <th scope="col">Оценка</th>
-                                <th scope="col">Избранное</th>
-                                <th />
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {userCrop.map((user) => (
-                                <User {...rest} {...user} key={user._id} />
-                            ))}
-                        </tbody>
-                    </table>
-                )}
+                {count > 0 && <UserTable users={userCrop} {...rest} />}
                 <div className="d-flex justify-content-center">
                     <Pagunation
                         itemsCount={count}
