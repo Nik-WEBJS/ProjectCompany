@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-// import User from "./user";
 import TableHeader from "./tableHeader";
 import TableBody from "./tableBody";
 import BookMark from "./bookmark";
+import QualitiesList from "./qualitiesList";
+import Table from "./table";
 
 const UserTable = ({
     users,
@@ -15,7 +16,10 @@ const UserTable = ({
 }) => {
     const columns = {
         name: { path: "name", name: "Имя" },
-        qualities: { name: "Качества" },
+        qualities: {
+            name: "Качества",
+            component: (user) => <QualitiesList qualities={user.qualities} />
+        },
         professions: { path: "profession.name", name: "Профессия" },
         completedMeetings: {
             path: "completedMeetings",
@@ -38,21 +42,21 @@ const UserTable = ({
                     onClick={() => onDelete(user._id)}
                     className="btn btn-danger"
                 >
-                    delete
+                    Удалить
                 </button>
             )
         }
     };
     return (
-        <table className="table">
+        <Table
+            onSort={onSort}
+            selectedSort={selectedSort}
+            columns={columns}
+            data={users}
+        >
             <TableHeader {...{ onSort, selectedSort, columns }} />
             <TableBody {...{ columns, data: users }} />
-            {/* <tbody>
-                {users.map((user) => (
-                    <User {...rest} {...user} key={user._id} />
-                ))}
-            </tbody> */}
-        </table>
+        </Table>
     );
 };
 
