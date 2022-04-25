@@ -14,9 +14,13 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
     };
 
     const addArrow = (item) =>
-        selectedSort.path === item
-            ? "bi bi-caret-down-fill"
-            : "bi bi-caret-up-fill";
+        item.order === "asc"
+            ? (
+                <i className="bi bi-caret-down-fill"></i>
+            )
+            : (
+                <i className="bi bi-caret-up-fill"></i>
+            );
 
     return (
         <thead>
@@ -29,11 +33,11 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
                                 ? () => handleSort(columns[column].path)
                                 : undefined
                         }
-                        className={addArrow(columns[column].path)}
                         {...{ role: columns[column].path && "button" }}
                         scope="col"
                     >
                         {columns[column].name}
+                        {selectedSort.path === columns[column].path && addArrow(selectedSort)}
                     </th>
                 ))}
             </tr>
