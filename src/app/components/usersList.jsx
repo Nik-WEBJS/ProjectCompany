@@ -6,10 +6,10 @@ import GroupList from "./groupList";
 import PropTypes from "prop-types";
 import SearchStatus from "./searchStatus";
 import api from "../api";
-import UserTable from "./usersTable";
+import UsersTable from "./usersTable";
 import _ from "lodash";
 
-const Users = () => {
+const UsersList = () => {
     const pageSize = 8;
     const [currentPage, setcurrentPage] = useState(1);
     const [professions, setProfession] = useState();
@@ -98,7 +98,7 @@ const Users = () => {
                 <div className="d-flex flex-column">
                     <SearchStatus length={count} />
                     {count > 0 && (
-                        <UserTable
+                        <UsersTable
                             users={userCrop}
                             onSort={handleSort}
                             selectedSort={sortBy}
@@ -121,8 +121,8 @@ const Users = () => {
     return "loading";
 };
 
-Users.propTypes = {
+UsersList.propTypes = {
     users: PropTypes.array
 };
 
-export default Users;
+export default UsersList;
