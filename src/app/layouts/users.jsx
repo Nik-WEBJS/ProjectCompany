@@ -8,7 +8,7 @@ const Users = () => {
     const { userId } = params;
     return (
         <>
-            <h1>{userId ? <UserPage userId={userId} /> : <UsersList />}</h1>
+            <div> {userId ? <UserPage userId={userId} /> : <UsersList />}</div>
         </>
     );
 };

@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 import React, { useEffect, useState } from "react";
 import { paginate } from "../utils/paginate";
 import Pagunation from "./pagunation";
@@ -10,7 +9,7 @@ import UsersTable from "./usersTable";
 import _ from "lodash";
 
 const UsersList = () => {
-    const pageSize = 8;
+    const pageSize = 4;
     const [currentPage, setcurrentPage] = useState(1);
     const [professions, setProfession] = useState();
     const [selectedProf, setSelectedProf] = useState();
@@ -60,10 +59,10 @@ const UsersList = () => {
     if (users) {
         const filtredUsers = selectedProf
             ? users.filter(
-                  (user) =>
-                      JSON.stringify(user.profession) ===
+                (user) =>
+                    JSON.stringify(user.profession) ===
                       JSON.stringify(selectedProf)
-              )
+            )
             : users;
 
         const count = filtredUsers.length;
