@@ -3,17 +3,19 @@ import { Link } from "react-router-dom";
 
 const NavBar = () => {
     return (
-        <ul>
-            <li>
+        <div className="d-flex mb-2">
+            <div className="p-2 bd-highlight">
                 <Link to="/">Main</Link>
-            </li>
-            <li>
+            </div>
+
+            <div className="p-2 bd-highlight">
                 <Link to="/login">Login</Link>
-            </li>
-            <li>
+            </div>
+
+            <div className="p-2 bd-highlight">
                 <Link to="/users">Users</Link>
-            </li>
-        </ul>
+            </div>
+        </div>
     );
 };
 

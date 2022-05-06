@@ -55,15 +55,17 @@ const UsersTable = ({
         }
     };
     return (
-        <Table
-            onSort={onSort}
-            selectedSort={selectedSort}
-            columns={columns}
-            data={users}
-        >
-            <TableHeader {...{ onSort, selectedSort, columns }} />
-            <TableBody {...{ columns, data: users }} />
-        </Table>
+        <>
+            <Table
+                onSort={onSort}
+                selectedSort={selectedSort}
+                columns={columns}
+                data={users}
+            >
+                <TableHeader {...{ onSort, selectedSort, columns }} />
+                <TableBody {...{ columns, data: users }} />
+            </Table>
+        </>
     );
 };
 

@@ -13,6 +13,9 @@ const UsersList = () => {
     const [currentPage, setcurrentPage] = useState(1);
     const [professions, setProfession] = useState();
     const [selectedProf, setSelectedProf] = useState();
+
+    const [placeholderUser, setplaceholderUser] = useState("");
+
     const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
 
     const [users, setUsers] = useState();
@@ -56,14 +59,25 @@ const UsersList = () => {
         setSortBy(item);
     };
 
+    const handleplaceholderUser = ({ target }) => {
+        setplaceholderUser(target.value);
+    };
+
     if (users) {
-        const filtredUsers = selectedProf
+        const filtredUsers = placeholderUser
             ? users.filter(
                 (user) =>
-                    JSON.stringify(user.profession) ===
-                      JSON.stringify(selectedProf)
+                    user.name
+                        .toLowerCase()
+                        .indexOf(placeholderUser.toLowerCase()) !== -1
             )
-            : users;
+            : selectedProf
+                ? users.filter(
+                    (user) =>
+                        JSON.stringify(user.profession) ===
+                    JSON.stringify(selectedProf)
+                )
+                : users;
 
         const count = filtredUsers.length;
         const sortedUsers = _.orderBy(
@@ -96,6 +110,12 @@ const UsersList = () => {
                 )}
                 <div className="d-flex flex-column">
                     <SearchStatus length={count} />
+                    <input
+                        type="text"
+                        name="placeholderUser"
+                        placeholder="Search..."
+                        onChange={handleplaceholderUser}
+                    />
                     {count > 0 && (
                         <UsersTable
                             users={userCrop}
