@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { paginate } from "../utils/paginate";
-import Pagunation from "./pagunation";
-import GroupList from "./groupList";
+import { paginate } from "../../../utils/paginate";
+import Pagunation from "../../common/pagunation";
+import GroupList from "../../common/groupList";
 import PropTypes from "prop-types";
-import SearchStatus from "./searchStatus";
-import api from "../api";
-import UsersTable from "./usersTable";
+import SearchStatus from "../../ui/searchStatus";
+import API from "../../../api";
+import UsersTable from "../../ui/usersTable";
 import _ from "lodash";
 
-const UsersList = () => {
+const UsersListPage = () => {
     const pageSize = 4;
     const [currentPage, setcurrentPage] = useState(1);
     const [professions, setProfession] = useState();
@@ -21,7 +21,7 @@ const UsersList = () => {
     const [users, setUsers] = useState();
 
     useEffect(() => {
-        api.users.fetchAll().then((data) => setUsers(data));
+        API.users.fetchAll().then((data) => setUsers(data));
     }, []);
 
     const handleDelete = (userId) => {
@@ -40,7 +40,7 @@ const UsersList = () => {
     };
 
     useEffect(() => {
-        api.professions.fetchAll().then((data) => setProfession(data));
+        API.professions.fetchAll().then((data) => setProfession(data));
     }, []);
 
     useEffect(() => {
@@ -75,7 +75,7 @@ const UsersList = () => {
                 ? users.filter(
                     (user) =>
                         JSON.stringify(user.profession) ===
-                    JSON.stringify(selectedProf)
+                      JSON.stringify(selectedProf)
                 )
                 : users;
 
@@ -140,8 +140,8 @@ const UsersList = () => {
     return "loading";
 };
 
-UsersList.propTypes = {
+UsersListPage.propTypes = {
     users: PropTypes.array
 };
 
-export default UsersList;
+export default UsersListPage;
