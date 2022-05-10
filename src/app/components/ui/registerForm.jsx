@@ -1,17 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { validator } from "../../utils/validator";
 import TextField from "../form/textField";
+import API from "../../api";
+import SelectField from "../form/selectField.";
+import RadioField from "../form/radioField";
+import MultiSelectField from "../form/multiSelectField";
 import CheckBoxField from "../form/checkBoxField";
 
-const LoginForm = () => {
+const RegisterForm = () => {
     const [data, setData] = useState({
         email: "",
         password: "",
-        stayOn: false
+        profession: "",
+        sex: "male",
+        qualities: [],
+        licence: false
     });
-
+    const [qualities, setQualities] = useState({});
+    const [professions, setProfession] = useState();
     const [errors, setErrors] = useState({});
 
+    useEffect(() => {
+        API.professions.fetchAll().then((data) => setProfession(data));
+        API.qualities.fetchAll().then((data) => setQualities(data));
+    }, []);
     const handleChange = (target) => {
         setData((prevState) => ({ ...prevState, [target.name]: target.value }));
     };
@@ -34,6 +46,17 @@ const LoginForm = () => {
             min: {
                 message: "праоль должен состоять минимум из 8 символов",
                 value: 8
+            }
+        },
+        profession: {
+            isRequired: {
+                message: "Обязательно выберите вашу профессию"
+            }
+        },
+        licence: {
+            isRequired: {
+                message:
+                    "Вы не можете использовать наш серввис без подтверждения лицензионного соглашения "
             }
         }
     };
@@ -74,12 +97,40 @@ const LoginForm = () => {
                 onChange={handleChange}
                 error={errors.password}
             />
-            <CheckBoxField
-                value={data.stayOn}
+            <SelectField
+                label="Выберите свою профессию"
+                defaultOption="Choose..."
+                value={data.profession}
+                options={professions}
                 onChange={handleChange}
-                name="stayOn"
+                name="professions"
+                error={errors.profession}
+            />
+            <RadioField
+                options={[
+                    { name: "Male", value: "male" },
+                    { name: "Female", value: "female" },
+                    { name: "Other", value: "other" }
+                ]}
+                value={data.sex}
+                name="sex"
+                onChange={handleChange}
+                label="Выберите ваш пол"
+            />
+            <MultiSelectField
+                options={qualities}
+                onChange={handleChange}
+                defaultValue={data.qualities}
+                name="qualities"
+                label="Выберите ваши качества"
+            />
+            <CheckBoxField
+                value={data.licence}
+                onChange={handleChange}
+                name="licence"
+                error={errors.licence}
             >
-                Оставаться в системе
+                Подтвердите лицензионное соглашение
             </CheckBoxField>
             <button
                 type="submit"
@@ -91,4 +142,5 @@ const LoginForm = () => {
         </form>
     );
 };
-export default LoginForm;
+
+export default RegisterForm;
