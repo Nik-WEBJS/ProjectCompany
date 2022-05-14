@@ -12,7 +12,7 @@ const UserPage = ({ id }) => {
         API.users.getById(id).then((user) => setUser(user));
     }, []);
 
-    const handleEdit = (id) => {
+    const handleEdit = () => {
         history.push(`${id}/edit`);
     };
 
@@ -24,7 +24,7 @@ const UserPage = ({ id }) => {
                 <QualitiesList qualities={user.qualities} />
                 <p>completedMeetings {user.completedMeetings}</p>
                 <h3>Rate{user.rate}</h3>
-                <button onClick={handleEdit}>all users</button>
+                <button onClick={handleEdit}>изменить</button>
             </div>
         );
     } else {

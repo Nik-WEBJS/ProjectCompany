@@ -11,13 +11,13 @@ const EditUser = () => {
     const [data, setData] = useState({ qualities: [] });
     const params = useParams();
     const history = useHistory();
-    const { id } = params;
+    const { userId } = params;
     const [errors, setErrors] = useState({});
     const [profession, setProfession] = useState();
     const [qualities, setQualities] = useState([]);
 
     useEffect(() => {
-        api.users.getById(id).then((data) => setData(data));
+        api.users.getById(userId).then((data) => setData(data));
         api.professions.fetchAll().then((data) => {
             const professionsList = Object.keys(data).map((professionName) => ({
                 label: data[professionName].name,
@@ -59,21 +59,6 @@ const EditUser = () => {
         }
         return qualitiesArray;
     };
-
-    const transformData = (data) => {
-        return data.map((qual) => ({ label: qual.name, value: qual._id }));
-    };
-
-    useEffect(() => {
-        api.users.getById(id).then((profession, qualities, ...data) =>
-            setData((prevState) => ({
-                ...prevState,
-                ...data,
-                qualities: transformData(qualities),
-                profession: profession._id
-            }))
-        );
-    });
 
     const validatorConfig = {
         name: {
@@ -124,8 +109,8 @@ const EditUser = () => {
         }
         data.qualities = getQualities(data.qualities);
 
-        history.push(`/users/${id}`);
-        api.users.update(id, data);
+        history.push(`/users/${userId}`);
+        api.users.update(userId, data);
     };
 
     useEffect(() => {

@@ -6,14 +6,22 @@ import PropTypes from "prop-types";
 const MultiSelectField = ({ options, onChange, name, label, defaultValue }) => {
     const optionArray =
         !Array.isArray(options) && typeof options === "object"
-            ? Object.keys(options).map((optionName) => ({
-                  label: options[optionName].name,
-                  value: options[optionName]._id
-              }))
+            ? Object.keys(options)
             : options;
 
     const handleChange = (value) => {
         onChange({ name: name, value });
+    };
+
+    const defValueFormat = (value) => {
+        const qual = [];
+        for (const val of value) {
+            qual.push({
+                value: val.id,
+                label: val.name
+            });
+        }
+        return qual;
     };
 
     return (
@@ -21,7 +29,7 @@ const MultiSelectField = ({ options, onChange, name, label, defaultValue }) => {
             <label className="form-label">{label}</label>
             <Select
                 isMulti
-                defaultValue={defaultValue}
+                defaultValue={defValueFormat(defaultValue)}
                 closeMenuOnSelect={false}
                 options={optionArray}
                 className="basic-multi-select"
