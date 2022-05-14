@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 import React from "react";
 import PropTypes from "prop-types";
 
@@ -8,32 +7,29 @@ const SelectField = ({
     onChange,
     defaultOption,
     options,
-    name,
-    error
+    error,
+    name
 }) => {
     const handleChange = ({ target }) => {
         onChange({ name: target.name, value: target.value });
     };
-
     const getInputClasses = () => {
         return "form-select" + (error ? " is-invalid" : "");
     };
-    const optionArray =
+
+    const optionsArray =
         !Array.isArray(options) && typeof options === "object"
-            ? Object.keys(options).map((optionName) => ({
-                  name: options[optionName].name,
-                  value: options[optionName]._id
-              }))
+            ? Object.values(options)
             : options;
 
     return (
-        <div className="md-4">
+        <div className="mb-4">
             <label htmlFor={name} className="form-label">
                 {label}
             </label>
             <select
                 className={getInputClasses()}
-                id="validationCustom04"
+                id={name}
                 name={name}
                 value={value}
                 onChange={handleChange}
@@ -41,10 +37,10 @@ const SelectField = ({
                 <option disabled value="">
                     {defaultOption}
                 </option>
-                {optionArray &&
-                    optionArray.map((option) => (
+                {optionsArray.length > 0 &&
+                    optionsArray.map((option) => (
                         <option value={option.value} key={option.value}>
-                            {option.name}
+                            {option.label}
                         </option>
                     ))}
             </select>

@@ -60,6 +60,21 @@ const EditUser = () => {
         return qualitiesArray;
     };
 
+    const transformData = (data) => {
+        return data.map((qual) => ({ label: qual.name, value: qual._id }));
+    };
+
+    useEffect(() => {
+        api.users.getById(id).then((profession, qualities, ...data) =>
+            setData((prevState) => ({
+                ...prevState,
+                ...data,
+                qualities: transformData(qualities),
+                profession: profession._id
+            }))
+        );
+    });
+
     const validatorConfig = {
         name: {
             isRequired: { message: "Поле обязательно для заполнения" }
