@@ -1,36 +1,72 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import React, { useState, useEffect } from "react";
 import API from "../../../api";
-import Qualities from "../../ui/qualities";
+import badgesClassName from "../../../utils/badgesClassName";
 import { useHistory } from "react-router-dom";
+import PropTypes from "prop-types";
 
-const UserPage = ({ userId }) => {
+const UserPage = ({ id }) => {
     const [user, setUser] = useState();
     const history = useHistory();
+
     useEffect(() => {
-        API.users.getById(userId).then((data) => setUser(data));
+        API.users.getById(id).then((user) => setUser(user));
     }, []);
-    const handleClick = () => {
-        history.push("/users");
+
+    const handleEdit = (id) => {
+        history.push(`${id}/edit`);
     };
+
     if (user) {
+        const { _id, name, profession, qualities, completedMeetings, rate } =
+            user;
+
         return (
-            <div>
-                <h1>{user.name}</h1>
-                <h2>Профессия {user.profession.name}</h2>
-                <Qualities qualities={user.qualities} />
-                <p>completedMeetings {user.completedMeetings}</p>
-                <h3>Rate{user.rate}</h3>
-                <button onClick={handleClick}>all users</button>
+            <div style={styled.block} key={_id} className="user__info">
+                <h1>{name}</h1>
+                <span style={styled.font}>
+                    {"Профессия: " + profession.name}
+                </span>
+                <ul
+                    style={{
+                        listStyle: "none",
+                        display: "flex",
+                        margin: 0,
+                        padding: 0
+                    }}
+                >
+                    {qualities.map((qual) => (
+                        <li key={qual._id}>
+                            <span className={badgesClassName(qual.color)}>
+                                {qual.name}
+                            </span>
+                        </li>
+                    ))}
+                </ul>
+                <span style={styled.font && { display: "block" }}>
+                    {"Встретился раз: " + completedMeetings}
+                </span>
+                <span style={styled.font}>{"Рэйтинг :" + rate}</span>
+                <button
+                    style={{ marginTop: "20px", display: "block" }}
+                    className="btn btn-dark"
+                    onClick={() => handleEdit(id)}
+                >
+                    Изменить
+                </button>
             </div>
         );
     } else {
-        return <span>Loading</span>;
+        return "loading";
     }
 };
 
+const styled = {
+    block: { display: "block", padding: "10px" },
+    font: { fontSize: "20px", fontWeight: "bold" }
+};
+
 UserPage.propTypes = {
-    userId: PropTypes.string.isRequired
+    id: PropTypes.string
 };
 
 export default UserPage;
