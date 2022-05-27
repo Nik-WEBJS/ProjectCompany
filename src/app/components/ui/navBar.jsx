@@ -1,21 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
 const NavBar = () => {
     return (
-        <div className="d-flex mb-2">
-            <div className="p-2 bd-highlight">
-                <Link to="/">Main</Link>
-            </div>
-
-            <div className="p-2 bd-highlight">
-                <Link to="/login">Login</Link>
-            </div>
-
-            <div className="p-2 bd-highlight">
-                <Link to="/users">Users</Link>
-            </div>
-        </div>
+        <ul className="nav">
+            <li className="nav-item">
+                <Link className="nav-link " aria-current="page" to="/">
+                    Main
+                </Link>
+            </li>
+            <li className="nav-item">
+                <Link className="nav-link " aria-current="page" to="/login">
+                    Login
+                </Link>
+            </li>
+            <li className="nav-item">
+                <Link className="nav-link " aria-current="page" to="/users">
+                    Users
+                </Link>
+            </li>
+        </ul>
     );
 };
 

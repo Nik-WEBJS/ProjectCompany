@@ -14,6 +14,7 @@ const CheckBoxField = ({ name, value, onChange, children, error }) => {
                 className={getInputClasses()}
                 type="checkbox"
                 value=""
+                id={name}
                 onChange={handleChange}
                 checked={value}
             />
@@ -24,7 +25,6 @@ const CheckBoxField = ({ name, value, onChange, children, error }) => {
         </div>
     );
 };
-
 CheckBoxField.propTypes = {
     name: PropTypes.string,
     value: PropTypes.bool,

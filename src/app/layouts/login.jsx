@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import LoginForm from "../components/ui/loginForm";
 import RegisterForm from "../components/ui/registerForm";
+
 const Login = () => {
     const { type } = useParams();
     const [formType, setFormType] = useState(
         type === "register" ? type : "login"
     );
-
-    const toogleFormType = (params) => {
+    const toggleFormType = (params) => {
         setFormType((prevState) =>
             prevState === "register" ? "login" : "register"
         );
@@ -24,7 +24,8 @@ const Login = () => {
                             <RegisterForm />
                             <p>
                                 Already have account?{" "}
-                                <a role="button" onClick={toogleFormType}>
+                                <a role="button" onClick={toggleFormType}>
+                                    {" "}
                                     Sign In
                                 </a>
                             </p>
@@ -32,10 +33,11 @@ const Login = () => {
                     ) : (
                         <>
                             <h3 className="mb-4">Login</h3>
-                            <LoginForm />{" "}
+                            <LoginForm />
                             <p>
-                                Don`t have account?{" "}
-                                <a role="button" onClick={toogleFormType}>
+                                Dont have account?{" "}
+                                <a role="button" onClick={toggleFormType}>
+                                    {" "}
                                     Sign Up
                                 </a>
                             </p>
